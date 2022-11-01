@@ -12,39 +12,46 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         System.out.println("AFK Machine Counting Down");
-        
-        for (int i = 5; i > -1; i--){
+
+        for (int i = 5; i > -1; i--) {
             System.out.println(i);
             sleep(1);
         }
-        
+
         afkLoop();
     }
 
-    private static void afkLoop() throws Exception{
+    private static void afkLoop() throws Exception {
+        final int[] WA = {KeyEvent.VK_W, KeyEvent.VK_S};
+        int key;
+        
         Robot robot = new Robot();
 
         while (true) {
-            robot.keyPress(KeyEvent.VK_W);
-            System.out.println("Key Pressed");
-            sleep(secRandom());
-            robot.keyRelease(KeyEvent.VK_W);
-            System.out.println("Key Released");
-            sleep(secRandom());
+            key = secRandom(2); 
+            
+            robot.keyPress(WA[key]);
+            sleep(secRandom(6));
+            
+            robot.keyRelease(WA[key]);
+            sleep(secRandom(3));
         }
     }
 
     private static void sleep(int time) {
         try {
-            Thread.sleep(time*1000);
+            Thread.sleep(time * 1000);
         } catch (Exception e) {
-            System.out.println("Sleep failure "+e);
+            System.out.println("Sleep failure " + e);
         }
     }
 
-    private static int secRandom() {
+    private static int secRandom(int bounds) {
         Random rand = new Random();
-        
-        return rand.nextInt(6);
+
+        int r = rand.nextInt(bounds);
+        System.out.println(r);
+
+        return r;
     }
 }
