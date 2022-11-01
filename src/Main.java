@@ -13,7 +13,7 @@ public class Main {
         
         for (int i = 5; i > -1; i--){
             System.out.println(i);
-            sleep(1000);
+            sleep(1);
         }
         
         afkLoop();
@@ -24,12 +24,17 @@ public class Main {
 
         while (true) {
             robot.keyPress(KeyEvent.VK_W);
+            System.out.println("Key Pressed");
+            sleep(1);
+            robot.keyRelease(KeyEvent.VK_W);
+            System.out.println("Key Released");
+            sleep(2);
         }
     }
 
     private static void sleep(int time) {
         try {
-            Thread.sleep(time);
+            Thread.sleep(time*1000);
         } catch (Exception e) {
             System.out.println("Sleep failure "+e);
         }
