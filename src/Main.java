@@ -3,14 +3,14 @@
  * to trick the game into thinking im not AFK
 */
 
-import java.awt.Robot;
 import java.awt.event.KeyEvent;
-
-import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        Thread keysWS = new Thread(new KeyPusher(KeyEvent.VK_W, KeyEvent.VK_S));
+        Thread keysAD = new Thread(new KeyPusher(KeyEvent.VK_A, KeyEvent.VK_D));
+        
         System.out.println("AFK Machine Counting Down");
 
         for (int i = 5; i > -1; i--) {
@@ -18,24 +18,8 @@ public class Main {
             sleep(1);
         }
 
-        afkLoop();
-    }
-
-    private static void afkLoop() throws Exception {
-        final int[] WA = {KeyEvent.VK_W, KeyEvent.VK_S};
-        int key;
-        
-        Robot robot = new Robot();
-
-        while (true) {
-            key = secRandom(2); 
-            
-            robot.keyPress(WA[key]);
-            sleep(secRandom(6));
-            
-            robot.keyRelease(WA[key]);
-            sleep(secRandom(3));
-        }
+        keysWS.start();
+        keysAD.start();
     }
 
     private static void sleep(int time) {
@@ -44,14 +28,5 @@ public class Main {
         } catch (Exception e) {
             System.out.println("Sleep failure " + e);
         }
-    }
-
-    private static int secRandom(int bounds) {
-        Random rand = new Random();
-
-        int r = rand.nextInt(bounds);
-        System.out.println(r);
-
-        return r;
     }
 }
