@@ -6,6 +6,8 @@
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
+import java.util.Random;
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
@@ -25,10 +27,10 @@ public class Main {
         while (true) {
             robot.keyPress(KeyEvent.VK_W);
             System.out.println("Key Pressed");
-            sleep(1);
+            sleep(secRandom());
             robot.keyRelease(KeyEvent.VK_W);
             System.out.println("Key Released");
-            sleep(2);
+            sleep(secRandom());
         }
     }
 
@@ -38,5 +40,11 @@ public class Main {
         } catch (Exception e) {
             System.out.println("Sleep failure "+e);
         }
+    }
+
+    private static int secRandom() {
+        Random rand = new Random();
+        
+        return rand.nextInt(6);
     }
 }
