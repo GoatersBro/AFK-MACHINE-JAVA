@@ -4,19 +4,34 @@
 */
 
 import java.awt.Robot;
-import java.awt.AWTException;
 import java.awt.event.KeyEvent;
 
-import java.io.IOException;
-
 public class Main {
-    public static void main(String[] args) throws IOException, AWTException, InterruptedException{
-        System.out.println("Program Started");
+
+    public static void main(String[] args) throws Exception {
+        System.out.println("AFK Machine Counting Down");
+        
+        for (int i = 5; i > -1; i--){
+            System.out.println(i);
+            sleep(1000);
+        }
+        
+        afkLoop();
+    }
+
+    private static void afkLoop() throws Exception{
         Robot robot = new Robot();
 
-        Thread.sleep(2000);
-        System.out.println("Pressing Key");
+        while (true) {
+            robot.keyPress(KeyEvent.VK_W);
+        }
+    }
 
-        robot.keyPress(KeyEvent.VK_F);
+    private static void sleep(int time) {
+        try {
+            Thread.sleep(time);
+        } catch (Exception e) {
+            System.out.println("Sleep failure "+e);
+        }
     }
 }
